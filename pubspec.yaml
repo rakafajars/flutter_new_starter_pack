@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^3.0.10
   google_fonts: 1.1.2
+  relative_scale: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:

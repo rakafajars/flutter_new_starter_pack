@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_new_starter_pack/theme/theme_color.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 import 'theme/theme_text.dart';
 
@@ -27,17 +28,27 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Starter Pack',
-          style: textFontWeight700.copyWith(
-            fontSize: 12,
-            color: primaryColor,
+    return RelativeBuilder(
+      builder: (context, height, width, sy, sx) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Starter Pack',
+              style: textFontWeight700.copyWith(
+                fontSize: sy(12),
+                color: primaryColor,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Container(),
+          body: Center(
+            child: Container(
+              color: primaryColor,
+              width: sy(50),
+              height: sy(50),
+            ),
+          ),
+        );
+      },
     );
   }
 }
