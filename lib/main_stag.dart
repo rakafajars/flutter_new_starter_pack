@@ -3,6 +3,6 @@ import 'package:flutter_new_starter_pack/config/app_config.dart';
 import 'package:flutter_new_starter_pack/main.dart';
 
 void main() {
-  Constants.setEnvironment(Environment.DEV);
+  Constants.setEnvironment(Environment.STAG);
   runApp(MyApp());
 }
