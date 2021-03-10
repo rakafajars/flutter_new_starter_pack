@@ -31,6 +31,8 @@ dependencies:
   dio: ^3.0.10
   google_fonts: 1.1.2
   relative_scale: ^2.0.0
+  shared_preferences: ^2.0.3
+
 
 
 dev_dependencies:
