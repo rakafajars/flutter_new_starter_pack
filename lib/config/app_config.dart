@@ -15,7 +15,7 @@ class ConfigUrl {
   static const String baseUrl = "baseUrl";
 
   static Map<String, dynamic> debugConstants = {
-    baseUrl: "",
+    baseUrl: "https://api-football.azharimm.tk/",
   };
   static Map<String, dynamic> stagConstants = {
     baseUrl: "",
