@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_new_starter_pack/config/app_config.dart';
 import 'package:flutter_new_starter_pack/model/m_movie/m_list_movie.dart';
 import 'package:flutter_new_starter_pack/resource/api_repository.dart';
+import 'package:flutter_new_starter_pack/utils/alice_service.dart';
 import 'package:flutter_new_starter_pack/utils/logging_interceptor.dart';
 import 'package:flutter_new_starter_pack/utils/extensions.dart';
 
@@ -22,6 +23,7 @@ class ApiService implements Repository {
 
     var dio = Dio(options);
     dio.interceptors.add(LogginInterceptors());
+    dio.interceptors.add(alice.getDioInterceptor());
 
     return dio;
   }

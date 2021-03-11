@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_new_starter_pack/theme/theme_color.dart';
 import 'package:flutter_new_starter_pack/ui/pages/counter/counter.dart';
 import 'package:flutter_new_starter_pack/ui/pages/movie/view/movie_page.dart';
+import 'package:flutter_new_starter_pack/utils/alice_service.dart';
 import 'package:relative_scale/relative_scale.dart';
 
 import 'theme/theme_text.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: alice.getNavigatorKey(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Starter Pack',
       theme: ThemeData(
