@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      key: alice.getNavigatorKey(),
+      navigatorKey: alice.getNavigatorKey(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Starter Pack',
       theme: ThemeData(
