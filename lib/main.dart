@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_new_starter_pack/theme/theme_color.dart';
+import 'package:flutter_new_starter_pack/ui/pages/counter/counter.dart';
 import 'package:relative_scale/relative_scale.dart';
 
 import 'theme/theme_text.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: CounterPage(),
     );
   }
 }
