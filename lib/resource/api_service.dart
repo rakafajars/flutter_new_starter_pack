@@ -22,6 +22,8 @@ class ApiService implements Repository {
 
     var dio = Dio(options);
     dio.interceptors.add(LogginInterceptors());
+
+    return dio;
   }
 
   String _showException(final error, final stacktrace) {

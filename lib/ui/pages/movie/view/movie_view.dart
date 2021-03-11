@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_new_starter_pack/theme/theme_text.dart';
+import 'package:flutter_new_starter_pack/ui/pages/movie/movie.dart';
+import 'package:relative_scale/relative_scale.dart';
+
+class MovieView extends StatefulWidget {
+  @override
+  _MovieViewState createState() => _MovieViewState();
+}
+
+class _MovieViewState extends State<MovieView> {
+  @override
+  Widget build(BuildContext context) {
+    return RelativeBuilder(
+      builder: (context, height, width, sy, sx) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "Movie Listing",
+            ),
+          ),
+          body: BlocBuilder<ListMovieCubit, ListMovieState>(
+            builder: (context, state) {
+              if (state is ListMovieInitial) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is ListMovieSuccess) {
+                return ListView.builder(
+                  itemCount: state.modelListMovie.results.length,
+                  padding: EdgeInsets.all(
+                    sy(8.0),
+                  ),
+                  itemBuilder: (context, int index) {
+                    return Card(
+                      elevation: 4,
+                      child: Padding(
+                        padding: EdgeInsets.all(
+                          sy(8.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: sy(150),
+                              height: sy(200),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/ + ${state.modelListMovie.results[index].posterPath}',
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: sy(200),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      state.modelListMovie.results[index].title,
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: Text(
+                                          // 6
+                                          state.modelListMovie.results[index]
+                                              .overview,
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
+              if (state is ListMovieFailure) {
+                return Center(
+                  child: Text(
+                    state.message,
+                    style: textFontWeight700,
+                  ),
+                );
+              }
+              return Container();
+            },
+          ),
+        );
+      },
+    );
+  }
+}
