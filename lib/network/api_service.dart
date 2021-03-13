@@ -46,7 +46,7 @@ class ApiService implements Repository {
   }) async {
     try {
       response = await dio.get(
-        'https://api-football.azharimm.tk/leagues/eng.1',
+        'https://api-football.azharimm.tk/leagues/$idLeagues',
       );
 
       return ModelDetailLeagues.fromJson(response.data);

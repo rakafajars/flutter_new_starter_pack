@@ -13,12 +13,16 @@ class ModelListLeagues {
   });
 
   bool status;
-  List<Datum> data;
+  List<ModelDataListLeagues> data;
 
   factory ModelListLeagues.fromJson(Map<String, dynamic> json) =>
       ModelListLeagues(
         status: json["status"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<ModelDataListLeagues>.from(
+          json["data"].map(
+            (x) => ModelDataListLeagues.fromJson(x),
+          ),
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,8 +31,8 @@ class ModelListLeagues {
       };
 }
 
-class Datum {
-  Datum({
+class ModelDataListLeagues {
+  ModelDataListLeagues({
     this.id,
     this.name,
     this.slug,
@@ -42,7 +46,8 @@ class Datum {
   String abbr;
   Logos logos;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory ModelDataListLeagues.fromJson(Map<String, dynamic> json) =>
+      ModelDataListLeagues(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],
