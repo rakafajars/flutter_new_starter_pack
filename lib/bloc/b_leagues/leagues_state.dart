@@ -22,7 +22,16 @@ class LeaguesListLoadSuccess extends LeaguesState {
   List<Object> get props => [modelListLeagues];
 }
 
-class LeaguesDetailLoadSuccess extends LeaguesState {}
+class LeaguesDetailLoadSuccess extends LeaguesState {
+  final ModelDetailLeagues modelDetailLeagues;
+
+  LeaguesDetailLoadSuccess({
+    @required this.modelDetailLeagues,
+  });
+
+  @override
+  List<Object> get props => [modelDetailLeagues];
+}
 
 class LeaguesLoadFailure extends LeaguesState {
   final String message;

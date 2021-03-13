@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_new_starter_pack/model/m_leagues/m_detail_leagues.dart';
 import 'package:flutter_new_starter_pack/model/m_leagues/m_list_leagues.dart';
 import 'package:flutter_new_starter_pack/model/m_movie/m_list_movie.dart';
 import 'package:flutter_new_starter_pack/network/api_repository.dart';
 import 'package:flutter_new_starter_pack/network/dio_client.dart';
 import 'package:flutter_new_starter_pack/utils/extensions.dart';
+import 'package:meta/meta.dart';
 
 class ApiService implements Repository {
   Response response;
@@ -31,6 +33,23 @@ class ApiService implements Repository {
         'https://api-football.azharimm.tk/leagues',
       );
       return ModelListLeagues.fromJson(response.data);
+    } on DioError catch (e) {
+      throw e.getErrorMessage();
+    } catch (error, stacktrace) {
+      throw showException(error, stacktrace);
+    }
+  }
+
+  @override
+  Future<ModelDetailLeagues> readDetailLeagues({
+    @required String idLeagues,
+  }) async {
+    try {
+      response = await dio.get(
+        'https://api-football.azharimm.tk/leagues/eng.1',
+      );
+
+      return ModelDetailLeagues.fromJson(response.data);
     } on DioError catch (e) {
       throw e.getErrorMessage();
     } catch (error, stacktrace) {

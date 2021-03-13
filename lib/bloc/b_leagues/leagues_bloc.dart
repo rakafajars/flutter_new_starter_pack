@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_new_starter_pack/model/m_leagues/m_detail_leagues.dart';
 import 'package:flutter_new_starter_pack/model/m_leagues/m_list_leagues.dart';
 import 'package:flutter_new_starter_pack/network/api_repository.dart';
 import 'package:flutter_new_starter_pack/network/api_service.dart';
@@ -15,6 +16,7 @@ class LeaguesBloc extends Bloc<LeaguesEvent, LeaguesState> {
 
   Repository _repository = ApiService();
   ModelListLeagues modelListLeagues;
+  ModelDetailLeagues modelDetailLeagues;
 
   @override
   Stream<LeaguesState> mapEventToState(
@@ -27,6 +29,21 @@ class LeaguesBloc extends Bloc<LeaguesEvent, LeaguesState> {
 
         yield LeaguesListLoadSuccess(
           modelListLeagues: modelListLeagues,
+        );
+      } catch (e) {
+        yield LeaguesLoadFailure(
+          message: "$e",
+        );
+      }
+    } else if (event is GetDetailLeaguesFromApi) {
+      yield LeaguesLoadInProgress();
+      try {
+        modelDetailLeagues = await _repository.readDetailLeagues(
+          idLeagues: event.idLeagues,
+        );
+
+        yield LeaguesDetailLoadSuccess(
+          modelDetailLeagues: modelDetailLeagues,
         );
       } catch (e) {
         yield LeaguesLoadFailure(

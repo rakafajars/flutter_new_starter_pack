@@ -31,7 +31,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
   final _widgetOptionsPage = [
     MoviePage(),
-    LeaguesPage(),
+    LeaguesListPage(),
   ];
 
   @override
