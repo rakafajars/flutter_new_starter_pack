@@ -1,1 +1,2 @@
-export 'view_leagues/leagues_pages.dart';
+export 'leagues_pages.dart';
+export 'leagues_detail.dart';

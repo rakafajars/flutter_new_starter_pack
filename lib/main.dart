@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_new_starter_pack/config/route_config.dart';
 import 'package:flutter_new_starter_pack/ui/pages/leagues/leagues.dart';
 import 'package:flutter_new_starter_pack/ui/pages/movie/movie.dart';
 import 'package:flutter_new_starter_pack/utils/alice_service.dart';
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: alice.getNavigatorKey(),
       debugShowCheckedModeBanner: false,
+      routes: RouteConfig.routes,
       title: 'Flutter Starter Pack',
       theme: ThemeData(
         primarySwatch: Colors.blue,
