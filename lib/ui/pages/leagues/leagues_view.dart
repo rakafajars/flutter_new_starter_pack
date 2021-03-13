@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_new_starter_pack/bloc/bloc_leagues/list_leagues_bloc/list_leagues_bloc.dart';
+import 'package:flutter_new_starter_pack/bloc/b_leagues/leagues_bloc.dart';
 import 'package:flutter_new_starter_pack/config/route_name.dart';
 import 'package:flutter_new_starter_pack/theme/theme_text.dart';
 import 'package:flutter_new_starter_pack/ui/widget/custome_page.dart';
@@ -19,12 +19,12 @@ class _LeaguesViewState extends State<LeaguesView> {
   Completer<void> _refreshCompleter;
 
   // BLOC
-  ListLeaguesBloc _listLeaguesBloc;
+  LeaguesBloc _leaguesBloc;
 
   @override
   void initState() {
     super.initState();
-    _listLeaguesBloc = BlocProvider.of<ListLeaguesBloc>(context);
+    _leaguesBloc = BlocProvider.of<LeaguesBloc>(context);
     _refreshCompleter = Completer<void>();
   }
 
@@ -37,25 +37,25 @@ class _LeaguesViewState extends State<LeaguesView> {
             appBar: AppBar(
               title: Text('Leagues List'),
             ),
-            body: BlocListener<ListLeaguesBloc, ListLeaguesState>(
+            body: BlocListener<LeaguesBloc, LeaguesState>(
               listener: (context, state) {
-                if (state is ListLeaguesInitial) {
+                if (state is LeaguesLoadInProgress) {
                   _refreshCompleter?.complete();
                   _refreshCompleter = Completer();
                 }
               },
-              child: BlocBuilder<ListLeaguesBloc, ListLeaguesState>(
-                cubit: _listLeaguesBloc,
+              child: BlocBuilder<LeaguesBloc, LeaguesState>(
+                cubit: _leaguesBloc,
                 builder: (context, state) {
-                  if (state is ListLeaguesInitial) {
+                  if (state is LeaguesLoadInProgress) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  if (state is ListLeaguesLoadedSuccess) {
+                  if (state is LeaguesListLoadSuccess) {
                     return RefreshIndicator(
                       onRefresh: () {
-                        _listLeaguesBloc
+                        _leaguesBloc
                           ..add(
                             GetListLeaguesFromApi(),
                           );
@@ -96,7 +96,7 @@ class _LeaguesViewState extends State<LeaguesView> {
                       ),
                     );
                   }
-                  if (state is ListLeaguesLoadedFailure) {
+                  if (state is LeaguesLoadFailure) {
                     return Center(
                       child: Text(
                         state.message,
