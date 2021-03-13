@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_new_starter_pack/bloc/bloc_leagues/list_leagues_bloc/list_leagues_bloc.dart';
 import 'package:flutter_new_starter_pack/theme/theme_text.dart';
+import 'package:flutter_new_starter_pack/ui/widget/custome_page.dart';
 import 'package:relative_scale/relative_scale.dart';
 
 class LeaguesView extends StatefulWidget {
@@ -30,74 +31,76 @@ class _LeaguesViewState extends State<LeaguesView> {
   Widget build(BuildContext context) {
     return RelativeBuilder(
       builder: (context, height, width, sy, sx) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('Leagues List'),
-          ),
-          body: BlocListener<ListLeaguesBloc, ListLeaguesState>(
-            listener: (context, state) {
-              if (state is ListLeaguesInitial) {
-                _refreshCompleter?.complete();
-                _refreshCompleter = Completer();
-              }
-            },
-            child: BlocBuilder<ListLeaguesBloc, ListLeaguesState>(
-              cubit: _listLeaguesBloc,
-              builder: (context, state) {
+        return CustomePage(
+          scaffold: Scaffold(
+            appBar: AppBar(
+              title: Text('Leagues List'),
+            ),
+            body: BlocListener<ListLeaguesBloc, ListLeaguesState>(
+              listener: (context, state) {
                 if (state is ListLeaguesInitial) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  _refreshCompleter?.complete();
+                  _refreshCompleter = Completer();
                 }
-                if (state is ListLeaguesLoadedSuccess) {
-                  return RefreshIndicator(
-                    onRefresh: () {
-                      _listLeaguesBloc
-                        ..add(
-                          GetListLeaguesFromApi(),
-                        );
-                      return _refreshCompleter.future;
-                    },
-                    child: GridView.builder(
-                      itemCount: state.modelListLeagues.data.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            elevation: 1.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              verticalDirection: VerticalDirection.down,
-                              children: [
-                                CachedNetworkImage(
-                                  imageUrl: state
-                                      .modelListLeagues.data[index].logos.dark,
-                                  height: sy(130),
-                                  width: sy(100),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-                if (state is ListLeaguesLoadedFailure) {
-                  return Center(
-                    child: Text(
-                      state.message,
-                      style: textFontWeight700,
-                    ),
-                  );
-                }
-                return Container();
               },
+              child: BlocBuilder<ListLeaguesBloc, ListLeaguesState>(
+                cubit: _listLeaguesBloc,
+                builder: (context, state) {
+                  if (state is ListLeaguesInitial) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is ListLeaguesLoadedSuccess) {
+                    return RefreshIndicator(
+                      onRefresh: () {
+                        _listLeaguesBloc
+                          ..add(
+                            GetListLeaguesFromApi(),
+                          );
+                        return _refreshCompleter.future;
+                      },
+                      child: GridView.builder(
+                        itemCount: state.modelListLeagues.data.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              elevation: 1.5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                verticalDirection: VerticalDirection.down,
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: state.modelListLeagues.data[index]
+                                        .logos.dark,
+                                    height: sy(130),
+                                    width: sy(100),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  if (state is ListLeaguesLoadedFailure) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: textFontWeight700,
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
             ),
           ),
         );
