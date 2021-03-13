@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_new_starter_pack/utils/shared_pref.dart';
 
 class LogginInterceptors extends Interceptor {
   @override

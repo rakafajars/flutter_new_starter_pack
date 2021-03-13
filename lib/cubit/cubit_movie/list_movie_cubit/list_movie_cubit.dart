@@ -19,7 +19,7 @@ class ListMovieCubit extends Cubit<ListMovieState> {
         ListMovieInitial(),
       );
 
-      modelListMovie = await _repository.getListMovie();
+      modelListMovie = await _repository.readListMovie();
 
       emit(
         ListMovieSuccess(

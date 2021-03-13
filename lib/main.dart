@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_new_starter_pack/theme/theme_color.dart';
-import 'package:flutter_new_starter_pack/ui/pages/counter/counter.dart';
-import 'package:flutter_new_starter_pack/ui/pages/movie/view/movie_page.dart';
+import 'package:flutter_new_starter_pack/ui/pages/leagues/leagues.dart';
+import 'package:flutter_new_starter_pack/ui/pages/movie/movie.dart';
 import 'package:flutter_new_starter_pack/utils/alice_service.dart';
-import 'package:relative_scale/relative_scale.dart';
-
-import 'theme/theme_text.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -18,41 +14,49 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MoviePage(),
+      home: NavigationPage(),
     );
   }
 }
 
-// Bisa diganti dengan page apapun
-class MyHomePage extends StatefulWidget {
+class NavigationPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _NavigationPageState createState() => _NavigationPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NavigationPageState extends State<NavigationPage> {
+  int _selectedIndex = 0;
+
+  final _widgetOptionsPage = [
+    MoviePage(),
+    LeaguesPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return RelativeBuilder(
-      builder: (context, height, width, sy, sx) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Starter Pack',
-              style: textFontWeight700.copyWith(
-                fontSize: sy(12),
-                color: primaryColor,
-              ),
-            ),
+    return Scaffold(
+      body: _widgetOptionsPage.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pin_drop),
+            label: 'Movie',
           ),
-          body: Center(
-            child: Container(
-              color: primaryColor,
-              width: sy(50),
-              height: sy(50),
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.view_compact),
+            label: 'Leagues',
           ),
-        );
-      },
+        ],
+      ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }
