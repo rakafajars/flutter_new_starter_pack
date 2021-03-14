@@ -7,6 +7,7 @@ import 'package:flutter_new_starter_pack/ui/pages/movie/movie.dart';
 class RouteConfig {
   static final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     RouteName.listMovie: (BuildContext context) => MoviePage(),
+    RouteName.detailMovie: (BuildContext context) => MovieDetailPage(),
     RouteName.listLeagues: (BuildContext context) => LeaguesListPage(),
     RouteName.detailLeagues: (BuildContext context) => DetailLeaguesPage(),
   };
