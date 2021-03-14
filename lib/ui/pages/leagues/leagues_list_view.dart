@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_new_starter_pack/bloc/b_leagues/leagues_bloc.dart';
 import 'package:flutter_new_starter_pack/config/route_name.dart';
 import 'package:flutter_new_starter_pack/theme/theme_text.dart';
+import 'package:flutter_new_starter_pack/ui/pages/leagues/leagues_argument.dart';
 import 'package:flutter_new_starter_pack/ui/widget/custome_page.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -72,6 +73,9 @@ class _LeaguesViewState extends State<LeaguesView> {
                               Navigator.pushNamed(
                                 context,
                                 RouteName.detailLeagues,
+                                arguments: LeaguesArguments(
+                                  state.modelListLeagues.data[index].id,
+                                ),
                               );
                             },
                             child: Card(
